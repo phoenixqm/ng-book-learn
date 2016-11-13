@@ -12,6 +12,10 @@
   <div ng-hide="2 + 2 == 5">2 + 2 isn't 5, don't hide</div>
   <div ng-hide="2 + 2 == 4">2 + 2 isn't 5, do hide</div>
 
+  <div ng-if="2 + 2 == 5">2 + 2 isn't 5, no element</div>
+  <div ng-if="2 + 2 == 4">2 + 2 is 4, has element</div>
+
+  <div>open inspector to see elements with classes</div>
   <script>
     angular.module('myApp', []);
   </script>

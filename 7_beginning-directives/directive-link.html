@@ -1,17 +1,42 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.js"></script>
+</head>
+<body>
+
+
+  <div ng-controller="ParentCtrl">
+    <input type="text" ng-model="name" />
+    <input type="text" ng-model="myLinkText" />
+
+  <div ng-controller="ChildCtrl">
+    <div my-directive
+         some-attr="myUrl"
+         my-link-text="myLinkText"
+         some-hello="name"
+         another-hello=""
+         >
+    </div>
+  </div>
+</div>
+
+<script>
 angular.module('myApp', [])
 .controller('ParentCtrl', function($scope) {
   $scope.name = "Erik";
+  console.log("inside ParentCtrl");
 })
 .controller('EriksController', function($scope) {
   $scope.heyThere = "Ari";
-  console.log("Instantiated");
+  console.log("inside EriksController");
 })
 .controller("ChildCtrl", function($scope) {
   console.log("inside childCtrl");
   // $scope.
 })
 .directive('someHello', function() {
-  console.log("Loading someController");
+  console.log("Loading someHello");
   return { controller: function($scope) {
     console.log("Loading someHello directive's Controller");
   } }
@@ -23,6 +48,7 @@ angular.module('myApp', [])
   } }
 })
 .directive('myDirective', function() {
+  console.log("Loading myDirective");
   return {
     restrict: 'A',
     replace: true,
@@ -30,16 +56,20 @@ angular.module('myApp', [])
     scope: {
       myUrl: '@someAttr',
       myLinkText: '=',
-      someController: '=someHello'
+      someHello: '=someHello'
     },
-    template: '<div><a href="{{myUrl}}">{{myLinkText}}</a> {{someController}}</div>',
+    template: '<div><a href="{{myUrl}}">{{myLinkText}}</a> {{someHello}}</div>',
     link: function(scope, iElement, iAttr, ngModelCtrl) {
-      // ngModelCtrl.myUrl = "hey from link function";
-      console.log(scope.someController,
-        iAttr.someController,
-        ngModelCtrl,
+      scope.myUrl = "hey from link function";
+      console.log(scope.someHello, iAttr.someHello, ngModelCtrl,
         ngModelCtrl[0] === iElement.inheritedData().$someHelloController,
         iElement.inheritedData());
     }
   };
-});
+});  
+
+</script>
+
+
+</body>
+</html>

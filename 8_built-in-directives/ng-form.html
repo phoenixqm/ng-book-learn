@@ -17,10 +17,11 @@
 
   <form name="signup_form" ng-controller="FormController" ng-submit="submitForm()" novalidate>
     <div ng-repeat="field in fields" ng-form="signup_form_input">
+      <span> {{field.name}} </span>
       <input type="text"
              name="dynamic_input"
              ng-required="field.isRequired"
-             ng-model="field.name"
+             ng-model="field.value"
              placeholder="{{field.placeholder}}" />
       <div ng-show="signup_form_input.dynamic_input.$dirty && signup_form_input.dynamic_input.$invalid">
         <span class="error" ng-show="signup_form_input.dynamic_input.$error.required">The field is required.</span>
@@ -34,13 +35,14 @@
     angular.module('myApp', [])
     .controller('FormController', function($scope) {
       $scope.fields = [
-        {placeholder: 'Username', isRequired: true},
-        {placeholder: 'Password', isRequired: true},
-        {placeholder: 'Email (optional)', isRequired: false}
+        {name:'username', placeholder: 'Username', isRequired: true},
+        {name:'password', placeholder: 'Password', isRequired: true},
+        {name:'email', placeholder: 'Email (optional)', isRequired: false}
       ];
 
       $scope.submitForm = function() {
-        alert("it works!");
+        var msg = JSON.stringify($scope.fields);
+        alert(msg);
       };
     });
   </script>

@@ -5,10 +5,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
   <style>
     .odd {
-      background-color: blue;
+      background-color: #faa;
     }
     .even {
-      background-color: red;
+      background-color: #afa;
     }
   </style>
 </head>
@@ -16,7 +16,7 @@
 
   <ul ng-controller="PeopleController">
     <li ng-repeat="person in people" ng-class="{even: !$even, odd: !$odd}">
-      {{person.name}} lives in {{person.city}}
+      #{{$index}}: {{person.name}} lives in {{person.city}}
     </li>
   </ul>
 
@@ -24,7 +24,9 @@
     angular.module('myApp', [])
     .controller('PeopleController', function($scope) {
       $scope.people = [
-        {name: "Ari", city: "San Francisco"},
+        {name: "Ari Bob", city: "San Francisco"},
+        {name: "Ari Soh", city: "San Francisco"},
+        {name: "Ari Fi", city: "San Francisco"},
         {name: "Erik", city: "Seattle"}
       ];
     });
